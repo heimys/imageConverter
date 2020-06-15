@@ -11,12 +11,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Paths;
 
 public class ImageToPdfConverter implements IConverter<ImageParam>{
     @Override
     public Result convert(ImageParam param) throws InvalidDataException, ConvertException {
         try {
-            String outputFile = param.getOutDir() + param.getInputFile().getName() + ".pdf";
+            String outputFile = Paths.get(param.getOutDir(), param.getInputFile().getName() + ".pdf").toString();
             Document document=new Document();
             PdfWriter.getInstance(document,new FileOutputStream(outputFile));
             document.open();

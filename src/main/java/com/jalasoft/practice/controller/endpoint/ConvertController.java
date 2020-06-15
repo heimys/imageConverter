@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/")
@@ -46,8 +47,8 @@ public class ConvertController {
                     .toUriString();
 
             IConverter converter = ConverterFactory.create(ConverterFactory.IMAGE);
-            String outDir = storageService.getOutputLocation().toString() + "\\";
-            String name1 = storageService.getLocation() + "\\" + fileName;
+            String outDir = storageService.getOutputLocation().toString();
+            String name1 = Paths.get(storageService.getLocation().toString(), fileName).toString();
             File newFile = new File(name1);
             Parameter param = new ImageParam(newFile, outDir);
             Result result = converter.convert(param);
